@@ -1,16 +1,14 @@
-Package: ITJobAbroadR
+Package: CountryRankR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Pakiet R do wspomagania decyzji o wyborze pracy zagranicznej w IT z wykorzystaniem metod Fuzzy VIKOR i MultiMOORA
 Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
+Authors: Julianna Suder
 Description: More about what it does (maybe more than one line).
     Continuation lines should be indented.
-License: What license is it under?
+License: MIT lub GNU + file LICENCE
 Encoding: UTF-8
 LazyData: true
+Depends: 
+    R (>= 3.5.0)
+Imports:
+RoxygenNote: 7.3.3
