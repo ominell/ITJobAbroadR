@@ -17,9 +17,9 @@
 #'  w <- c(1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12)
 #'  cb <- c('min','max','min','min')
 #'  v <- 0.625
-#'  FuzzyVIKOR(d,w,cb,v)
+#'  fuzzy_vikor(d,w,cb,v)
 
-FuzzyVIKOR <- function(result, #matrix with all the alternatives for {n} criteria
+fuzzy_vikor <- function(result, #matrix with all the alternatives for {n} criteria
                        weights,  #vector with the numeric values of the weights
                        cb,       #vector with the "type" of the criteria (benefit = "max", cost = "min") - short from cost-benefit
                        v        #value with the real number of the 'v' parameter to calculate Q
