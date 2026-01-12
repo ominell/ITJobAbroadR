@@ -8,3 +8,5 @@
 /man/hello.Rd
 *.png
 *.md
+/inst/doc
+/man/figures/
