@@ -19,29 +19,29 @@ mcda_dane_surowe <- data.frame(
 
   # Dane ciągłe
   # --- Kryterium 1: Dostępność ofert pracy IT (liczba) ---
-  oferty_IT <- runif(n_alt * n_eks, 500, 5000),
+  oferty_IT = runif(n_alt * n_eks, 500, 5000),
   # --- Kryterium 2: Dostępność dojazdu z Polski (średni czas podróży w h) ---
-  dojazd_godz <- runif(n_alt * n_eks, 1, 10),
+  dojazd_godz = runif(n_alt * n_eks, 1, 10),
   # --- Kryterium 3: Koszt mieszkania (EUR/miesiąc) ---
-  koszt_mieszkania <- runif(n_alt * n_eks, 600, 2500),
+  koszt_mieszkania = runif(n_alt * n_eks, 600, 2500),
   # --- Kryterium 4: Bliskość geograficzna (km) ---
-  odleglosc_km <- runif(n_alt * n_eks, 300, 2500),
+  odleglosc_km = runif(n_alt * n_eks, 300, 2500),
   # --- Kryterium 5: Dostęp do jedzenia/usług ---
-  dostep_jedzenie_uslugi <- runif(n_alt * n_eks, 50, 500),
+  dostep_jedzenie_uslugi = runif(n_alt * n_eks, 50, 500),
   # --- Kryterium 6: Formalności i prawo pracy (dni) ---
-  formalnosci_dni <- runif(n_alt * n_eks, 10, 180),
+  formalnosci_dni = runif(n_alt * n_eks, 10, 180),
 
   # Skala dyskretna
   # --- Kryterium 7: Podobieństwo strefy czasowej (różnica względem Polski 0-2h) ---
-  roznica_czasu <- sample(0:2, n_alt * n_eks, replace = TRUE),
+  roznica_czasu = sample(0:2, n_alt * n_eks, replace = TRUE),
 
   # Skala Likerta
   # --- Kryterium 8: Komunikacja lokalna (1–7) ---
-  komunikacja_lokalna <- sample(1:7, n_alt * n_eks, replace = TRUE),
+  komunikacja_lokalna = sample(1:7, n_alt * n_eks, replace = TRUE),
   # --- Kryterium 9: Możliwość nauki języka (1–5) ---
-  nauka_jezyka <- sample(c(1:5, 99), n_alt * n_eks, replace = TRUE, prob = c(rep(0.18, 5), 0.1)),
+  nauka_jezyka = sample(c(1:5, 99), n_alt * n_eks, replace = TRUE, prob = c(rep(0.18, 5), 0.1)),
   # --- Kryterium 10: Przyjazność kultury (1–7) ---
-  przyjaznosc_kultury <- sample(1:7, n_alt * n_eks, replace = TRUE)
+  przyjaznosc_kultury = sample(1:7, n_alt * n_eks, replace = TRUE)
 )
 
 # Zapisanie danych do folderu pakietu /data
