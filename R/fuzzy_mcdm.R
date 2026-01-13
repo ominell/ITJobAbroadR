@@ -74,7 +74,6 @@ oblicz_wagi_entropii <- function(macierz_decyzyjna) {
     wagi_ostre <- wynik_bwm$wagi_kryteriow
 
     if (length(wagi_ostre) != n_kryteriow) stop("Liczba wag z BWM nie zgadza się z liczbą kryteriów w macierzy.")
-
     # Konwersja na wagi rozmyte (w, w, w)
     wagi_rozmyte <- rep(wagi_ostre, each = 3)
     return(wagi_rozmyte)
