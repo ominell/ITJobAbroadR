@@ -1,7 +1,6 @@
-#' Plot Fuzzy VIKOR Results
+#' Wewnętrzny motyw graficzny
 #'
-#' @description Visualizes the VIKOR results using a bubble chart.
-#' @param vikor_res Result object from fuzzy_vikor
+#' @description Przedstawia wyniki VIKOR przy użyciu wykresu bąbelkowego.
 #' @import ggplot2
 #' @import ggrepel
 #'
@@ -20,6 +19,7 @@
 }
 
 #' Wizualizacja Fuzzy VIKOR
+#'
 #' @param x Wynik z fuzzy_vikor.
 #' @param ... Dodatkowe argumenty przekazywane do funkcji plot.
 #' @method plot fuzzy_vikor_res
@@ -43,6 +43,7 @@ plot.fuzzy_vikor_res <- function(x, ...) {
   ggplot(df, aes(x = Wydajnosc, y = R)) +
     # Tło dla strefy Lidera (Prawa dolna ćwiartka: Duża wydajność, Małe ryzyko)
     annotate("rect", xmin=sr_wyd, xmax=Inf, ymin=-Inf, ymax=sr_ryzyko, fill="#E8F5E9", alpha=0.5) +
+    annotate("rect", xmin=sr_wyd, xmax=-Inf, ymin=Inf, ymax=sr_ryzyko, fill="red", alpha=0.1) +
     # Linie podziału
     geom_vline(xintercept = sr_wyd, linetype = "dashed", color = "grey50") +
     geom_hline(yintercept = sr_ryzyko, linetype = "dashed", color = "grey50") +
@@ -53,14 +54,16 @@ plot.fuzzy_vikor_res <- function(x, ...) {
            hjust=0, vjust=1, size=3, fontface="italic", color="#B71C1C") +
     # Bąble
     geom_point(aes(size = Rozmiar, fill = Wydajnosc), shape = 21, color = "black", alpha = 0.8) +
-    geom_text_repel(aes(label = paste0("Alt ", Alternatywa)), box.padding = 0.5) +
+    geom_text_repel(aes(label = paste0("Kraj ", Alternatywa)), box.padding = 0.5) +
     scale_x_continuous(expand = expansion(mult = 0.2)) +
 
     labs(
         title = "Analiza Fuzzy VIKOR",
-        subtitle = "Zielona Strefa = Najlepsze opcje. Czerwona Streda = Najgorsze opcje.",
-        x = "Kraje",
-        y = "Satysfakcja",
+        subtitle = "Zielona Strefa = Najlepszy kompromis",
+        x = "Indeks Wydajności Grupy (odwrócone S)",
+        y = "Indeks Ryzyka / Żalu (R)",
+        size = "Dominacja",
+        fill = "Wynik"
       ) +
       .motyw_wykresu()
 }

@@ -1,7 +1,7 @@
 Package: CountryRankR
 Type: Package
 Title: Pakiet R do wspomagania decyzji o wyborze pracy zagranicznej w IT 
-Version: 0.2.2
+Version: 0.3.0
 Author: Julianna Suder <julianna.suder@student.uj.edu.pl>
 Description: Pakiet implementuje metody Fuzzy VIKOR i MultiMOORA.
 License: GPL-3

@@ -7,7 +7,6 @@
 .skaluj_do_saaty(wektor)
 }
 \description{
-Skaluje dowolny wektor (ciągły, Likert, dyskretny)
-na skalę Saaty'ego 1-9.
+Skaluje dowolny wektor (ciągły, Likert, dyskretny) na skalę Saaty'ego 1-9.
 }
 \keyword{internal}

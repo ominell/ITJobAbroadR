@@ -1,0 +1,58 @@
+---
+title: "Pełny proces analizy: Od danych do rankingu"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Pełny proces analizy: Od danych do rankingu}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CountryRankR)
+```
+## 1. Wczytanie danych
+
+Korzystamy z wbudowanego w pakiet zbioru danych mcda_dane_surowe.
+```{r}
+data("mcda_dane_surowe") 
+head(mcda_dane_surowe) 
+```
+
+## 2. Definicja modelu (Składnia)
+
+Definiujemy, które kolumny z ramki danych wchodzą w skład poszczególnych kryteriów. 
+```{r}
+skladnia_modelu <- "Oferty =~ oferty_IT;
+                    Czas =~ dojazd_godz;
+                    Koszt =~ koszt_mieszkania;
+                    Odległość =~ odleglosc_km;
+                    Dogodności =~ dostep_jedzenie_uslugi;
+                    Strefa czasowa =~ roznica_czasu;
+                    Dostępność =~ zatrudnienie_obcy;
+                    Transport =~ komunikacja_lokalna;
+                    Język =~ nauka_jezyka;
+                    Kultura =~ przyjaznosc_kultury"
+```
+
+## 3. Przetwarzanie i Rozmywanie danych
+
+Funkcja `prepare_mcda_data` automatycznie skaluje dane do przedziału 1-9 i zamienia je na liczby rozmyte (TFN).
+```{r}
+macierz_rozmyta <- przygotuj_dane_mcda( 
+  dane = mcda_dane_surowe,  
+  skladnia = skladnia_modelu,  
+  kolumna_alternatyw = "Alternatywa" 
+) 
+
+# Podgląd fragmentu macierzy
+print(macierz_rozmyta[1:5, 1:6])
+```
+
+

@@ -8,6 +8,6 @@
 }
 \description{
 Zamienia liczbę rzeczywistą (Crisp) na Trójkątną Liczbę Rozmytą (TFN).
-TFN to trójka (l, m, u), gdzie m = x, l = x-1, u = x+1.
+Wektor przyjmuje postać (l, m, u), gdzie m = x, l = x-1, u = x+1.
 }
 \keyword{internal}

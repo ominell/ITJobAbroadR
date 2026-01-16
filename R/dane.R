@@ -21,9 +21,9 @@
 #'
 #'   \item{dostep_jedzenie_uslugi}{Liczba punktów usług/żywienia w okolicy (zmienna ciągła).}
 #'
-#'   \item{formalnosci_dni}{Czas formalności związanych z pracą (dni, zmienna ciągła).}
-#'
 #'   \item{roznica_czasu}{Różnica strefy czasowej względem Polski (0–2, zmienna dyskretna).}
+#'
+#'   \item{zatrudnienie_obcy}{Łatwość zatrudnienia dla objokrajowców (skala Likerta 1–7).}
 #'
 #'   \item{komunikacja_lokalna}{Ocena jakości komunikacji lokalnej (skala Likerta 1–7).}
 #'

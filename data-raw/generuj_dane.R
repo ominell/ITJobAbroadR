@@ -1,4 +1,3 @@
-# Ziarno losowosci, do powtarzalnosci wynikow
 set.seed(112)
 
 # Tworzymy ramke danych symulujaca problem decyzyjny (wybor kraju)
@@ -18,7 +17,7 @@ mcda_dane_surowe <- data.frame(
   Alternatywa = rep(kraje, times = n_eks), # Powtórzone 5 razy dla każdego eksperta
 
   # Dane ciągłe
-  # --- Kryterium 1: Dostępność ofert pracy IT (liczba) ---
+  # --- Kryterium 1: Liczba ofert pracy IT (ilość) ---
   oferty_IT = runif(n_alt * n_eks, 500, 5000),
   # --- Kryterium 2: Dostępność dojazdu z Polski (średni czas podróży w h) ---
   dojazd_godz = runif(n_alt * n_eks, 1, 10),
@@ -26,16 +25,16 @@ mcda_dane_surowe <- data.frame(
   koszt_mieszkania = runif(n_alt * n_eks, 600, 2500),
   # --- Kryterium 4: Bliskość geograficzna (km) ---
   odleglosc_km = runif(n_alt * n_eks, 300, 2500),
-  # --- Kryterium 5: Dostęp do jedzenia/usług ---
+  # --- Kryterium 5: Dostęp do jedzenia/usług (ilość) ---
   dostep_jedzenie_uslugi = runif(n_alt * n_eks, 50, 500),
-  # --- Kryterium 6: Formalności i prawo pracy (dni) ---
-  formalnosci_dni = runif(n_alt * n_eks, 10, 180),
 
   # Skala dyskretna
-  # --- Kryterium 7: Podobieństwo strefy czasowej (różnica względem Polski 0-2h) ---
+  # --- Kryterium 6: Podobieństwo strefy czasowej (różnica względem Polski 0-2h) ---
   roznica_czasu = sample(0:2, n_alt * n_eks, replace = TRUE),
 
   # Skala Likerta
+  # --- Kryterium 7: Łatwość zatrudnienia dla objokrajowców (1-7) ---
+  zatrudnienie_obcy = sample(1:7, n_alt * n_eks, replace = TRUE),
   # --- Kryterium 8: Komunikacja lokalna (1–7) ---
   komunikacja_lokalna = sample(1:7, n_alt * n_eks, replace = TRUE),
   # --- Kryterium 9: Możliwość nauki języka (1–5) ---
@@ -44,6 +43,4 @@ mcda_dane_surowe <- data.frame(
   przyjaznosc_kultury = sample(1:7, n_alt * n_eks, replace = TRUE)
 )
 
-# Zapisanie danych do folderu pakietu /data
-# Funkcja use_data automatycznie kompresuje dane do formatu .rda
 usethis::use_data(mcda_dane_surowe, overwrite = TRUE)

@@ -20,13 +20,12 @@
 }
 
 #' @title Wewnętrzny Skaler Saaty'ego
-#' @description Skaluje dowolny wektor (ciągły, Likert, dyskretny)
-#' na skalę Saaty'ego 1-9.
+#' @description Skaluje dowolny wektor (ciągły, Likert, dyskretny) na skalę Saaty'ego 1-9.
 #' @keywords internal
 .skaluj_do_saaty <- function(wektor) {
   if (any(wektor < 0, na.rm = TRUE)) stop("Wykryto wartości ujemne w danych wejściowych.")
 
-  #Obsluga kodow bledow (np. 99) i brakow danych (NA) -> zamiana na 0
+  #Obsluga kodow bledow (np. 99) i brakow danych (NA)
   wektor[is.na(wektor) | wektor == 99] <- 0
 
   maska_poprawne <- wektor > 0
@@ -34,14 +33,14 @@
 
   if (length(wartosci) == 0) return(wektor)
 
-  min_v <- min(wartosci)
-  max_v <- max(wartosci)
+  min_w <- min(wartosci)
+  max_w <- max(wartosci)
 
   #Skalowanie
-  if (min_v == max_v) {
+  if (min_w == max_w) {
     wektor[maska_poprawne] <- 1
   } else {
-    wektor[maska_poprawne] <- 1 + (wartosci - min_v) * (8 / (max_v - min_v))
+    wektor[maska_poprawne] <- 1 + (wartosci - min_w) * (8 / (max_w - min_w))
   }
 
   return(wektor)
@@ -49,7 +48,7 @@
 
 #' @title Wewnętrzna funkcja rozmywająca (Fuzzifier)
 #' @description Zamienia liczbę rzeczywistą (Crisp) na Trójkątną Liczbę Rozmytą (TFN).
-#' TFN to trójka (l, m, u), gdzie m = x, l = x-1, u = x+1.
+#' Wektor przyjmuje postać (l, m, u), gdzie m = x, l = x-1, u = x+1.
 #' @keywords internal
 .rozmyj_wektor <- function(wektor) {
 
@@ -116,17 +115,17 @@ przygotuj_dane_mcda <- function(dane,
 
     tymczasowe_wyniki$ID_Alternatywy <- dane[[kolumna_alternatyw]]
 
-    dane_zagregowane <- aggregate(. ~ ID_Alternatywy, data = tymczasowe_wyniki[, -1], FUN = funkcja_agregacji)
+    dane_aggr <- aggregate(. ~ ID_Alternatywy, data = tymczasowe_wyniki[, -1], FUN = funkcja_agregacji)
 
-    dane_zagregowane <- dane_zagregowane[order(dane_zagregowane$ID_Alternatywy), ]
-    nazwy_wierszy <- dane_zagregowane$ID_Alternatywy
-    macierz_wynikow <- as.matrix(dane_zagregowane[, nazwy_kryteriow])
+    dane_aggr <- dane_aggr[order(dane_aggr$ID_Alternatywy), ]
+    nazwy_wierszy <- dane_aggr$ID_Alternatywy
+    macierz_wynikow <- as.matrix(dane_aggr[, nazwy_kryteriow])
   } else {
     macierz_wynikow <- as.matrix(tymczasowe_wyniki[, nazwy_kryteriow])
     nazwy_wierszy <- 1:nrow(macierz_wynikow)
   }
 
-  # 4. Rozmywanie (Crisp -> Fuzzy Triangular)
+  # 4. Rozmywanie
   lista_decyzyjna <- list()
 
   for (i in seq_along(nazwy_kryteriow)) {
