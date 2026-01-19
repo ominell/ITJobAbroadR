@@ -32,12 +32,12 @@ Definiujemy, które kolumny z ramki danych wchodzą w skład poszczególnych kry
 skladnia_modelu <- "Oferty =~ oferty_IT;
                     Czas =~ dojazd_godz;
                     Koszt =~ koszt_mieszkania;
-                    Odległość =~ odleglosc_km;
-                    Dogodności =~ dostep_jedzenie_uslugi;
-                    Strefa czasowa =~ roznica_czasu;
-                    Dostępność =~ zatrudnienie_obcy;
+                    Odległosc =~ odleglosc_km;
+                    Dogodnosci =~ dostep_jedzenie_uslugi;
+                    Strefa_czasowa =~ roznica_czasu;
+                    Dostepnosc =~ zatrudnienie_obcy;
                     Transport =~ komunikacja_lokalna;
-                    Język =~ nauka_jezyka;
+                    Jezyk =~ nauka_jezyka;
                     Kultura =~ przyjaznosc_kultury"
 ```
 
@@ -55,4 +55,49 @@ macierz_rozmyta <- przygotuj_dane_mcda(
 print(macierz_rozmyta[1:5, 1:6])
 ```
 
+## 4. Wyznaczanie wag metodą BWM (Best-Worst Method)
 
+Zamiast zgadywać wagi, pytamy eksperta. Zakładamy, że:
+
+- Najlepsze kryterium: Oferty 
+- Najgorsze kryterium: Strefa_czasowa 
+```{r}
+# Preferencja NAJLEPSZEGO (Oferty) nad innymi (1-9):
+# Oferty/Oferty=1, Oferty/Czas=7, Oferty/Koszt=4, Oferty/Odleglosc=5, Oferty/Dogodnosci=6, 
+# Oferty/Strefa_czasowa=8, Oferty/Dostepnosc=2, Oferty/Transport=3, Oferty/Jezyk=6, Oferty/Kultura=5
+
+bwm_najlepsze  <- c(1,7,4,5,6,8,2,3,6,5)
+
+
+# Preferencja innych nad NAJGORSZYM (Strefa_czasowa) (1-9):
+# Oferty/Strefa_czasowa=8, Czas/Strefa_czasowa=2, Koszt/Strefa_czasowa=3, Odleglosc/Strefa_czasowa=3, Dogodnosci/Strefa_czasowa=2, 
+# Strefa_czasowa/Strefa_czasowa=1, Dostepnosc/Strefa_czasowa=6, Transport/Strefa_czasowa=4, Jezyk/Strefa_czasowa=2, Kultura/Strefa_czasowa=3
+
+bwm_najgorsze <- c(8,2,3,3,2,1,6,4,2,3)
+```
+
+## 5. Analiza Decyzyjna (VIKOR, MultiMOORA)
+
+Uruchamiamy metody. Pakiet automatycznie policzy wagi z parametrów BWM. Definiujemy typy kryteriów: min (koszt) lub max (korzyść).
+```{r}
+typy <- c("min","max","min","min","max","min","min","min","min","min")
+
+# Fuzzy VIKOR
+wynik_vikor <- fuzzy_vikor(
+  wynik = macierz_rozmyta,
+  typy_kryteriow = typy,
+  bwm_kryteria = c("Oferty", "Czas", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Jezyk", "Kultura"), 
+  bwm_najlepsze = bwm_najlepsze,
+  bwm_najgorsze = bwm_najgorsze
+)
+
+# Wyniki tabelaryczne
+print(wynik_vikor$wyniki)
+```
+
+## 6. Wizualizacja (Mapy Decyzyjne)
+
+Generujemy mapy strategiczne.
+```{r}
+plot(wynik_vikor)
+```

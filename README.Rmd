@@ -1,0 +1,79 @@
+---
+output: github_document
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ITJobAbroadR
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+**ITJobAbroadR** to pakiet R przeprowadzenie pełnej analizy MCDA (Multi‑Criteria Decision Analysis) w kontekście wyboru kraju do pracy w branży IT.
+
+## Funkcje pakietu
+
+-  **Przygotowanie danych rozmytych**
+-  **Best-Worst Method (BWM)** - ważenie kryteriów
+-  **2 metody MCDA:**
+  - Fuzzy VIKOR
+  - MultiMOORA
+-  **Wizualizacje wyników** 
+
+
+## Instalacja
+
+Możesz zainstalować wersję deweloperską z serwisu GitHub:
+
+```r
+# install.packages("devtools")
+devtools::install_github("ominell/ITJobAbroadR")
+```
+## Szybki Start
+
+Oto podstawowy przykład użycia pakietu z wykorzystaniem wbudowanych danych.
+```{r example}
+library(ITJobAbroadR)
+
+# 1. Wczytaj dane 
+data("mcda_dane_surowe") 
+
+# 2. Przygotuj macierz rozmytą 
+# Definiujemy, które kolumny tworzą kryteria 
+skladnia <- "Oferty =~ oferty_IT;
+             Czas =~ dojazd_godz;
+             Koszt =~ koszt_mieszkania;
+             Odległosc =~ odleglosc_km;
+             Dogodnosci =~ dostep_jedzenie_uslugi;
+             Strefa_czasowa =~ roznica_czasu;
+             Dostepnosc =~ zatrudnienie_obcy;
+             Transport =~ komunikacja_lokalna;
+             Jezyk =~ nauka_jezyka;
+             Kultura =~ przyjaznosc_kultury"
+
+wynik <- przygotuj_dane_mcda(mcda_dane_surowe, skladnia, kolumna_alternatyw = "Alternatywa") 
+
+# 3. Oblicz ranking metodą Fuzzy TOPSIS (wagi z Entropii Shannona - automat) 
+res_vikor <- fuzzy_vikor(macierz_decyzyjna = wynik,
+                     typy_kryteriow= c("min", "max", "min", "min", "max", "min", "min", "min", "min", "min"),
+                     bwm_kryteria = c("Oferty", "Czas", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Jezyk", "Kultura"), 
+                     bwm_najlepsze = c(1,7,4,5,6,8,2,3,6,5),
+                     bwm_najgorsze = c(8,2,3,3,2,1,6,4,2,3)
+)
+
+# 4. Wyświetl wynik 
+print(res_vikor$wyniki) 
+
+# 5. Wyświetl mapę decyzyjną 
+plot(res_vikor) 
+
+```
+
+
+
