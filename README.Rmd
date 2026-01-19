@@ -59,7 +59,7 @@ skladnia <- "Oferty =~ oferty_IT;
 
 wynik <- przygotuj_dane_mcda(mcda_dane_surowe, skladnia, kolumna_alternatyw = "Alternatywa") 
 
-# 3. Oblicz ranking metodą Fuzzy TOPSIS (wagi z Entropii Shannona - automat) 
+# 3. Oblicz ranking metodą Fuzzy VIKOR
 res_vikor <- fuzzy_vikor(macierz_decyzyjna = wynik,
                      typy_kryteriow= c("min", "max", "min", "min", "max", "min", "min", "min", "min", "min"),
                      bwm_kryteria = c("Oferty", "Czas", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Jezyk", "Kultura"), 
