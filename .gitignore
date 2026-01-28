@@ -8,5 +8,4 @@
 /man/hello.Rd
 *.png
 /inst/doc
-/man/figures/
 inst/doc
