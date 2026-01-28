@@ -6,6 +6,5 @@
 *.tar.gz
 *.Rcheck/
 /man/hello.Rd
-*.png
 /inst/doc
 inst/doc
