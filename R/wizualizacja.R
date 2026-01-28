@@ -14,9 +14,12 @@
       plot.title = element_text(face = "bold", size = 16),
       plot.subtitle = element_text(color = "grey40", size = 11),
       panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
+      legend.position = "right",
+      axis.title = element_text(face = "bold")
     )
   )
 }
+
 
 #' Wizualizacja Fuzzy VIKOR
 #'
@@ -66,4 +69,23 @@ plot.fuzzy_vikor_res <- function(x, ...) {
         fill = "Wynik"
       ) +
       .motyw_wykresu()
+}
+
+#' Mapa Strategiczna MULTIMOORA
+#' @export
+plot.fuzzy_multimoora_res <- function(x, ...) {
+  df <- x$wyniki
+  df$Sila <- (max(df$Ranking_MM) - df$Ranking_MM + 1)^2
+
+  ggplot(df, aes(x = RS_Wynik, y = RP_Wynik)) +
+    annotate("rect", xmin = median(df$RS_Wynik), xmax = Inf, ymin = -Inf, ymax = median(df$RP_Wynik), fill = "#E8F5E9", alpha = 0.5) +
+    geom_point(aes(size = Sila, fill = as.factor(Ranking_MM)), shape = 21, color = "black") +
+    geom_text_repel(aes(label = paste0("Alt ", Alternatywa))) +
+
+    .motyw_wykresu() +
+    scale_fill_brewer(palette = "RdYlGn", direction = -1) +
+    labs(
+        title = "Mapa MULTIMOORA",
+        x = "System Ilorazowy (Max)",
+        y = "Punkt Odniesienia (Min)")
 }

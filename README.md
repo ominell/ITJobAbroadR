@@ -51,10 +51,10 @@ skladnia <- "Oferty =~ oferty_IT;
              Jezyk =~ nauka_jezyka;
              Kultura =~ przyjaznosc_kultury"
 
-wynik <- przygotuj_dane_mcda(mcda_dane_surowe, skladnia, kolumna_alternatyw = "Alternatywa") 
+macierz_rozmyta <- przygotuj_dane_mcda(mcda_dane_surowe, skladnia, kolumna_alternatyw = "Alternatywa") 
 
 # 3. Oblicz ranking metodą Fuzzy VIKOR
-res_vikor <- fuzzy_vikor(macierz_decyzyjna = wynik,
+res_vikor <- fuzzy_vikor(macierz_decyzyjna = macierz_rozmyta,
                      typy_kryteriow= c("min", "max", "min", "min", "max", "min", "min", "min", "min", "min"),
                      bwm_kryteria = c("Oferty", "Czas", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Jezyk", "Kultura"), 
                      bwm_najlepsze = c(1,7,4,5,6,8,2,3,6,5),

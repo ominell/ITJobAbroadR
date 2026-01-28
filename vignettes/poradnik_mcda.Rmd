@@ -43,7 +43,7 @@ skladnia_modelu <- "Oferty =~ oferty_IT;
 
 ## 3. Przetwarzanie i Rozmywanie danych
 
-Funkcja `prepare_mcda_data` automatycznie skaluje dane do przedziału 1-9 i zamienia je na liczby rozmyte (TFN).
+Funkcja `przygotuj_dane_mcda` automatycznie skaluje dane do przedziału 1-9 i zamienia je na liczby rozmyte (TFN).
 ```{r}
 macierz_rozmyta <- przygotuj_dane_mcda( 
   dane = mcda_dane_surowe,  
@@ -68,7 +68,6 @@ Zamiast zgadywać wagi, pytamy eksperta. Zakładamy, że:
 
 bwm_najlepsze  <- c(1,7,4,5,6,8,2,3,6,5)
 
-
 # Preferencja innych nad NAJGORSZYM (Strefa_czasowa) (1-9):
 # Oferty/Strefa_czasowa=8, Czas/Strefa_czasowa=2, Koszt/Strefa_czasowa=3, Odleglosc/Strefa_czasowa=3, Dogodnosci/Strefa_czasowa=2, 
 # Strefa_czasowa/Strefa_czasowa=1, Dostepnosc/Strefa_czasowa=6, Transport/Strefa_czasowa=4, Jezyk/Strefa_czasowa=2, Kultura/Strefa_czasowa=3
@@ -84,7 +83,16 @@ typy <- c("min","max","min","min","max","min","min","min","min","min")
 
 # Fuzzy VIKOR
 wynik_vikor <- fuzzy_vikor(
-  wynik = macierz_rozmyta,
+  macierz_decyzyjna = macierz_rozmyta,
+  typy_kryteriow = typy,
+  bwm_kryteria = c("Oferty", "Czas", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Jezyk", "Kultura"), 
+  bwm_najlepsze = bwm_najlepsze,
+  bwm_najgorsze = bwm_najgorsze
+)
+
+# Fuzzy VMULTIMOORA
+wynik_multimoora <- fuzzy_multimoora(
+  macierz_decyzyjna = macierz_rozmyta,
   typy_kryteriow = typy,
   bwm_kryteria = c("Oferty", "Czas", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Jezyk", "Kultura"), 
   bwm_najlepsze = bwm_najlepsze,
@@ -93,6 +101,7 @@ wynik_vikor <- fuzzy_vikor(
 
 # Wyniki tabelaryczne
 print(wynik_vikor$wyniki)
+print(wynik_multimoora$wyniki)
 ```
 
 ## 6. Wizualizacja (Mapy Decyzyjne)
@@ -100,4 +109,19 @@ print(wynik_vikor$wyniki)
 Generujemy mapy strategiczne.
 ```{r}
 plot(wynik_vikor)
+plot(wynik_multimoora)
 ```
+
+## 7. Meta-Ranking (Konsensus)
+
+Agregujemy wyniki obu metod, aby uzyskać ostateczną decyzję.
+```{r}
+meta_wynik <- fuzzy_meta_ranking(
+  macierz_decyzyjna = macierz_rozmyta,
+  typy_kryteriow = typy,
+  bwm_najlepsze = bwm_najlepsze,
+  bwm_najgorsze = bwm_najgorsze
+)
+
+# Tabela porównawcza 
+knitr::kable(meta_wynik$porownanie, caption = "Porównanie rankingów i Konsensus") 
