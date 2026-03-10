@@ -19,8 +19,8 @@ mcda_dane_surowe <- data.frame(
   # Dane ciągłe
   # --- Kryterium 1: Liczba ofert pracy IT (ilość) ---
   oferty_IT = runif(n_alt * n_eks, 500, 5000),
-  # --- Kryterium 2: Dostępność dojazdu z Polski (średni czas podróży w h) ---
-  dojazd_godz = runif(n_alt * n_eks, 1, 10),
+  # --- Kryterium 2: Poziom wynagrodzeń (EUR/miesiąc) ---
+  wynagrodzenie = runif(n_alt * n_eks, 2000, 6000),
   # --- Kryterium 3: Koszt mieszkania (EUR/miesiąc) ---
   koszt_mieszkania = runif(n_alt * n_eks, 600, 2500),
   # --- Kryterium 4: Bliskość geograficzna (km) ---
@@ -37,8 +37,8 @@ mcda_dane_surowe <- data.frame(
   zatrudnienie_obcy = sample(1:7, n_alt * n_eks, replace = TRUE),
   # --- Kryterium 8: Komunikacja lokalna (1–7) ---
   komunikacja_lokalna = sample(1:7, n_alt * n_eks, replace = TRUE),
-  # --- Kryterium 9: Możliwość nauki języka (1–5) ---
-  nauka_jezyka = sample(c(1:5, 99), n_alt * n_eks, replace = TRUE, prob = c(rep(0.18, 5), 0.1)),
+  # --- Kryterium 9: Możliwość rozwoju zawodowego (1–7) ---
+  rozwoj = sample(c(1:7, 99), n_alt * n_eks, replace = TRUE, prob = c(rep(0.12, 7), 0.16)),
   # --- Kryterium 10: Przyjazność kultury (1–7) ---
   przyjaznosc_kultury = sample(1:7, n_alt * n_eks, replace = TRUE)
 )

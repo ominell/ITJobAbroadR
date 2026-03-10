@@ -13,7 +13,7 @@
 #'
 #'   \item{oferty_IT}{Liczba ofert pracy IT (zmienna ciągła).}
 #'
-#'   \item{dojazd_godz}{Średni czas podróży z Polski (godziny, zmienna ciągła).}
+#'   \item{wynagrodzenie}{Poziom wynagrodzenia (EUR/miesiąc, zmienna ciągła).}
 #'
 #'   \item{koszt_mieszkania}{Średni koszt wynajmu mieszkania (EUR/miesiąc, zmienna ciągła).}
 #'
@@ -27,7 +27,7 @@
 #'
 #'   \item{komunikacja_lokalna}{Ocena jakości komunikacji lokalnej (skala Likerta 1–7).}
 #'
-#'   \item{nauka_jezyka}{Możliwość nauki języka (skala Likerta 1–5). Zawiera wartość 99 jako kod błędu/braku odpowiedzi.}
+#'   \item{rozwoj}{Możliwość rozwoju zawodowego (skala Likerta 1–7). Zawiera wartość 99 jako kod błędu/braku odpowiedzi.}
 #'
 #'   \item{przyjaznosc_kultury}{Ocena przyjazności kultury (skala Likerta 1–7).}
 #'

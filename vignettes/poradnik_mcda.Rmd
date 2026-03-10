@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(CountryRankR)
+library(ITJobAbroadR)
 ```
 ## 1. Wczytanie danych
 
@@ -30,14 +30,14 @@ head(mcda_dane_surowe)
 Definiujemy, które kolumny z ramki danych wchodzą w skład poszczególnych kryteriów. 
 ```{r}
 skladnia_modelu <- "Oferty =~ oferty_IT;
-                    Czas =~ dojazd_godz;
+                    Wynagrodzenie_EUR =~ wynagrodzenie;
                     Koszt =~ koszt_mieszkania;
                     Odległosc =~ odleglosc_km;
                     Dogodnosci =~ dostep_jedzenie_uslugi;
                     Strefa_czasowa =~ roznica_czasu;
                     Dostepnosc =~ zatrudnienie_obcy;
                     Transport =~ komunikacja_lokalna;
-                    Jezyk =~ nauka_jezyka;
+                    Rozwoj_zaw =~ rozwoj;
                     Kultura =~ przyjaznosc_kultury"
 ```
 
@@ -63,14 +63,14 @@ Zamiast zgadywać wagi, pytamy eksperta. Zakładamy, że:
 - Najgorsze kryterium: Strefa_czasowa 
 ```{r}
 # Preferencja NAJLEPSZEGO (Oferty) nad innymi (1-9):
-# Oferty/Oferty=1, Oferty/Czas=7, Oferty/Koszt=4, Oferty/Odleglosc=5, Oferty/Dogodnosci=6, 
-# Oferty/Strefa_czasowa=8, Oferty/Dostepnosc=2, Oferty/Transport=3, Oferty/Jezyk=6, Oferty/Kultura=5
+# Oferty/Oferty=1, Oferty/Wynagrodzenie_EUR=7, Oferty/Koszt=4, Oferty/Odleglosc=5, Oferty/Dogodnosci=6, 
+# Oferty/Strefa_czasowa=8, Oferty/Dostepnosc=2, Oferty/Transport=3, Oferty/Rozwoj_zaw=6, Oferty/Kultura=5
 
 bwm_najlepsze  <- c(1,7,4,5,6,8,2,3,6,5)
 
 # Preferencja innych nad NAJGORSZYM (Strefa_czasowa) (1-9):
-# Oferty/Strefa_czasowa=8, Czas/Strefa_czasowa=2, Koszt/Strefa_czasowa=3, Odleglosc/Strefa_czasowa=3, Dogodnosci/Strefa_czasowa=2, 
-# Strefa_czasowa/Strefa_czasowa=1, Dostepnosc/Strefa_czasowa=6, Transport/Strefa_czasowa=4, Jezyk/Strefa_czasowa=2, Kultura/Strefa_czasowa=3
+# Oferty/Strefa_czasowa=8, Wynagrodzenie_EUR/Strefa_czasowa=2, Koszt/Strefa_czasowa=3, Odleglosc/Strefa_czasowa=3, Dogodnosci/Strefa_czasowa=2, 
+# Strefa_czasowa/Strefa_czasowa=1, Dostepnosc/Strefa_czasowa=6, Transport/Strefa_czasowa=4, Rozwoj_zaw/Strefa_czasowa=2, Kultura/Strefa_czasowa=3
 
 bwm_najgorsze <- c(8,2,3,3,2,1,6,4,2,3)
 ```
@@ -85,7 +85,7 @@ typy <- c("min","max","min","min","max","min","min","min","min","min")
 wynik_vikor <- fuzzy_vikor(
   macierz_decyzyjna = macierz_rozmyta,
   typy_kryteriow = typy,
-  bwm_kryteria = c("Oferty", "Czas", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Jezyk", "Kultura"), 
+  bwm_kryteria = c("Oferty", "Wynagrodzenie_EUR", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Rozwoj_zaw", "Kultura"), 
   bwm_najlepsze = bwm_najlepsze,
   bwm_najgorsze = bwm_najgorsze
 )
@@ -94,7 +94,7 @@ wynik_vikor <- fuzzy_vikor(
 wynik_multimoora <- fuzzy_multimoora(
   macierz_decyzyjna = macierz_rozmyta,
   typy_kryteriow = typy,
-  bwm_kryteria = c("Oferty", "Czas", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Jezyk", "Kultura"), 
+  bwm_kryteria = c("Oferty", "Wynagrodzenie_EUR", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Rozwoj_zaw", "Kultura"), 
   bwm_najlepsze = bwm_najlepsze,
   bwm_najgorsze = bwm_najgorsze
 )

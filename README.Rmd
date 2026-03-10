@@ -47,14 +47,14 @@ data("mcda_dane_surowe")
 # 2. Przygotuj macierz rozmytą 
 # Definiujemy, które kolumny tworzą kryteria 
 skladnia <- "Oferty =~ oferty_IT;
-             Czas =~ dojazd_godz;
+             Wynagrodzenie_EUR =~ wynagrodzenie;
              Koszt =~ koszt_mieszkania;
              Odległosc =~ odleglosc_km;
              Dogodnosci =~ dostep_jedzenie_uslugi;
              Strefa_czasowa =~ roznica_czasu;
              Dostepnosc =~ zatrudnienie_obcy;
              Transport =~ komunikacja_lokalna;
-             Jezyk =~ nauka_jezyka;
+             Rozwoj_zaw =~ rozwoj;
              Kultura =~ przyjaznosc_kultury"
 
 macierz_rozmyta <- przygotuj_dane_mcda(mcda_dane_surowe, skladnia, kolumna_alternatyw = "Alternatywa") 
@@ -62,7 +62,7 @@ macierz_rozmyta <- przygotuj_dane_mcda(mcda_dane_surowe, skladnia, kolumna_alter
 # 3. Oblicz ranking metodą Fuzzy VIKOR
 res_vikor <- fuzzy_vikor(macierz_decyzyjna = macierz_rozmyta,
                      typy_kryteriow= c("min", "max", "min", "min", "max", "min", "min", "min", "min", "min"),
-                     bwm_kryteria = c("Oferty", "Czas", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Jezyk", "Kultura"), 
+                     bwm_kryteria = c("Oferty", "Wynagrodzenie_EUR", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Rozwoj_zaw", "Kultura"), 
                      bwm_najlepsze = c(1,7,4,5,6,8,2,3,6,5),
                      bwm_najgorsze = c(8,2,3,3,2,1,6,4,2,3)
 )
