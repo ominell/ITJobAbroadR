@@ -6,31 +6,22 @@
 #'
 #' @format Ramka danych (data frame) z 50 wierszami i 12 zmiennymi:
 #' \describe{
-#'
 #'   \item{EkspertID}{Identyfikator eksperta (1–5). Każdy ekspert ocenia wszystkie kraje.}
-#'
 #'   \item{Alternatywa}{Nazwa kraju będącego alternatywą decyzyjną.}
 #'
-#'   \item{oferty_IT}{Liczba ofert pracy IT (zmienna ciągła).}
-#'
-#'   \item{wynagrodzenie}{Poziom wynagrodzenia (EUR/miesiąc, zmienna ciągła).}
-#'
-#'   \item{koszt_mieszkania}{Średni koszt wynajmu mieszkania (EUR/miesiąc, zmienna ciągła).}
-#'
-#'   \item{odleglosc_km}{Odległość geograficzna od Polski (km, zmienna ciągła).}
-#'
-#'   \item{dostep_jedzenie_uslugi}{Liczba punktów usług/żywienia w okolicy (zmienna ciągła).}
-#'
+#'   \item{war_oferty}{Liczba ofert pracy IT (zmienna ciągła).}
+#'   \item{war_siec}{Jakość łącza internetowego (skala Likerta 1-5).}
+#'   \item{war_elast}{Elastyczność godzin pracy (skala Likerta 1-5).}
+#'   \item{koszt_mieszkanie}{Średni koszt zakwaterowania (EUR/miesiąc, zmienna ciągła).}
+#'   \item{koszt_jedzenie}{Średni koszt jedzenia (EUR/miesiąc, zmienna ciągła).}
+#'   \item{koszt_transport}{Średni koszt komunikacji lokalnej (EUR/miesiąc, zmienna ciągła).}
+#'   \item{atr_kultura}{Atrakcyjność kultury (skala Likerta 1–7).}
+#'   \item{atr_jezyk}{Ocena chęci i potrzeby nauki języka kraju (skala Likerta 1–7) Zawiera wartość 99 jako kod błędu/braku odpowiedzi.}
+#'   \item{atr_obcy}{Łatwość zatrudnienia dla objokrajowców (skala Likerta 1–7).}
+#'   \item{atr_zdrowie}{Dostępność usług zdrowotnych (skala Likerta 1–7).}
+#'   \item{rozwoj_zaw}{Możliwość rozwoju zawodowego (skala Likerta 1–7).}
+#'   \item{rozwoj_osob}{Możliwość rozwoju osobistego poza pracą (skala Likerta 1–7).}
 #'   \item{roznica_czasu}{Różnica strefy czasowej względem Polski (0–2, zmienna dyskretna).}
-#'
-#'   \item{zatrudnienie_obcy}{Łatwość zatrudnienia dla objokrajowców (skala Likerta 1–7).}
-#'
-#'   \item{komunikacja_lokalna}{Ocena jakości komunikacji lokalnej (skala Likerta 1–7).}
-#'
-#'   \item{rozwoj}{Możliwość rozwoju zawodowego (skala Likerta 1–7). Zawiera wartość 99 jako kod błędu/braku odpowiedzi.}
-#'
-#'   \item{przyjaznosc_kultury}{Ocena przyjazności kultury (skala Likerta 1–7).}
-#'
 #' }
 #'
 #' @usage data(mcda_dane_surowe)

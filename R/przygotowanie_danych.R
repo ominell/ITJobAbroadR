@@ -70,10 +70,7 @@
 #' agreguje odpowiedzi ekspertów (jeśli dotyczy) i dokonuje rozmycia (fuzzification).
 #'
 #' @param dane Ramka danych (data frame) zawierająca surowe zmienne.
-#' @param skladnia Tekst definiujący kryteria, np.:
-#' "A1 =~ oferty_IT;
-#'  A2 =~ dojazd_godz;
-#'  A3 =~ koszt_mieszkania"
+#' @param skladnia Tekst definiujący kryteria, np.: "Kryterium1 =~ k1 + k2 + k3"
 #' @param kolumna_alternatyw Nazwa kolumny identyfikującej alternatywy.
 #' Jeśli NULL, każdy wiersz traktowany jest jako osobna alternatywa.
 #' @param funkcja_agregacji Funkcja używana do scalania opinii ekspertów (domyślnie: mean).

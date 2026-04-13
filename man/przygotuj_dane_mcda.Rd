@@ -14,10 +14,7 @@ przygotuj_dane_mcda(
 \arguments{
 \item{dane}{Ramka danych (data frame) zawierająca surowe zmienne.}
 
-\item{skladnia}{Tekst definiujący kryteria, np.:
-"A1 =~ oferty_IT;
- A2 =~ dojazd_godz;
- A3 =~ koszt_mieszkania"}
+\item{skladnia}{Tekst definiujący kryteria, np.: "Kryterium1 =~ k1 + k2 + k3"}
 
 \item{kolumna_alternatyw}{Nazwa kolumny identyfikującej alternatywy.
 Jeśli NULL, każdy wiersz traktowany jest jako osobna alternatywa.}
