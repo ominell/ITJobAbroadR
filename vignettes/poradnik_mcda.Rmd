@@ -29,16 +29,11 @@ head(mcda_dane_surowe)
 
 Definiujemy, które kolumny z ramki danych wchodzą w skład poszczególnych kryteriów. 
 ```{r}
-skladnia_modelu <- "Oferty =~ oferty_IT;
-                    Wynagrodzenie_EUR =~ wynagrodzenie;
-                    Koszt =~ koszt_mieszkania;
-                    Odległosc =~ odleglosc_km;
-                    Dogodnosci =~ dostep_jedzenie_uslugi;
-                    Strefa_czasowa =~ roznica_czasu;
-                    Dostepnosc =~ zatrudnienie_obcy;
-                    Transport =~ komunikacja_lokalna;
-                    Rozwoj_zaw =~ rozwoj;
-                    Kultura =~ przyjaznosc_kultury"
+skladnia_modelu <- "Warunki =~ war_oferty + war_siec + war_elast;
+                    Koszt =~ koszt_mieszkanie + koszt_jedzenie + koszt_transport;
+                    Atrakcyjnosc =~ atr_kultura + atr_jezyk + atr_obcy + atr_zdrowie;
+                    Rozwoj =~ rozwoj_zaw + rozwoj_osob;
+                    Strefa_czasowa =~ roznica_czasu"
 ```
 
 ## 3. Przetwarzanie i Rozmywanie danych
@@ -59,33 +54,31 @@ print(macierz_rozmyta[1:5, 1:6])
 
 Zamiast zgadywać wagi, pytamy eksperta. Zakładamy, że:
 
-- Najlepsze kryterium: Oferty 
+- Najlepsze kryterium: Warunki 
 - Najgorsze kryterium: Strefa_czasowa 
 ```{r}
-# Preferencja NAJLEPSZEGO (Oferty) nad innymi (1-9):
-# Oferty/Oferty=1, Oferty/Wynagrodzenie_EUR=7, Oferty/Koszt=4, Oferty/Odleglosc=5, Oferty/Dogodnosci=6, 
-# Oferty/Strefa_czasowa=8, Oferty/Dostepnosc=2, Oferty/Transport=3, Oferty/Rozwoj_zaw=6, Oferty/Kultura=5
+# Preferencja NAJLEPSZEGO (Warunki) nad innymi (1-9):
+# Warunki/Warunki=1, Warunki/Koszt=3, Warunki/Atrakcyjnosc=2, Warunki/Rozwoj=6, Warunki/Strefa_czasowa=8
 
-bwm_najlepsze  <- c(1,7,4,5,6,8,2,3,6,5)
+bwm_najlepsze  <- c(1,3,2,6,8)
 
 # Preferencja innych nad NAJGORSZYM (Strefa_czasowa) (1-9):
-# Oferty/Strefa_czasowa=8, Wynagrodzenie_EUR/Strefa_czasowa=2, Koszt/Strefa_czasowa=3, Odleglosc/Strefa_czasowa=3, Dogodnosci/Strefa_czasowa=2, 
-# Strefa_czasowa/Strefa_czasowa=1, Dostepnosc/Strefa_czasowa=6, Transport/Strefa_czasowa=4, Rozwoj_zaw/Strefa_czasowa=2, Kultura/Strefa_czasowa=3
+# Warunki/Strefa_czasowa=8, Koszt/Strefa_czasowa=5, Atrakcyjnosc/Strefa_czasowa=6, Rozwoj/Strefa_czasowa=3, Strefa_czasowa/Strefa_czasowa=1
 
-bwm_najgorsze <- c(8,2,3,3,2,1,6,4,2,3)
+bwm_najgorsze <- c(8,5,6,3,1)
 ```
 
 ## 5. Analiza Decyzyjna (VIKOR, MultiMOORA)
 
 Uruchamiamy metody. Pakiet automatycznie policzy wagi z parametrów BWM. Definiujemy typy kryteriów: min (koszt) lub max (korzyść).
 ```{r}
-typy <- c("min","max","min","min","max","min","min","min","min","min")
+typy <- c("min","max","max","min","min")
 
 # Fuzzy VIKOR
 wynik_vikor <- fuzzy_vikor(
   macierz_decyzyjna = macierz_rozmyta,
   typy_kryteriow = typy,
-  bwm_kryteria = c("Oferty", "Wynagrodzenie_EUR", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Rozwoj_zaw", "Kultura"), 
+  bwm_kryteria = c("Warunki", "Koszt", "Atrakcyjnosc", "Rozwoj", "Strefa_czasowa"), 
   bwm_najlepsze = bwm_najlepsze,
   bwm_najgorsze = bwm_najgorsze
 )
@@ -94,7 +87,7 @@ wynik_vikor <- fuzzy_vikor(
 wynik_multimoora <- fuzzy_multimoora(
   macierz_decyzyjna = macierz_rozmyta,
   typy_kryteriow = typy,
-  bwm_kryteria = c("Oferty", "Wynagrodzenie_EUR", "Koszt","Odleglosc", "Dogodnosci", "Strefa_czasowa", "Dostepnosc", "Transport", "Rozwoj_zaw", "Kultura"), 
+  bwm_kryteria = c("Warunki", "Koszt", "Atrakcyjnosc", "Rozwoj", "Strefa_czasowa"), 
   bwm_najlepsze = bwm_najlepsze,
   bwm_najgorsze = bwm_najgorsze
 )
