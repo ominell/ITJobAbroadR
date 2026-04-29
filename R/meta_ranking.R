@@ -1,7 +1,7 @@
 #' @title Teoria Dominacji dla Rankingu
-#' @description Funkcja pomocnicza do konsensusu.
+#' @description Funkcja pomocnicza do wyznaczenia konsensusu na podstawie zasady większości.
 #' @keywords internal
-oblicz_dominacje_ranking <- function(rank_mat) {
+oblicz_ranking_dominacji <- function(rank_mat) {
   n <- nrow(rank_mat)
   finalny_ranking <- rep(0, n)
   dostepne <- rep(TRUE, n)
@@ -10,7 +10,6 @@ oblicz_dominacje_ranking <- function(rank_mat) {
     obecna_mac <- rank_mat
     obecna_mac[!dostepne, ] <- Inf
 
-    # Kto ma najlepszą rangę w każdej metodzie?
     kandydaci <- apply(obecna_mac, 2, which.min)
     freq_table <- table(kandydaci)
 
@@ -20,7 +19,6 @@ oblicz_dominacje_ranking <- function(rank_mat) {
     if (length(zwyciezcy) == 1) {
       zwyciezcy_ind <- zwyciezcy
     } else {
-      # Remis: wybierz tego z najmniejszą sumą rang
       sums <- rowSums(rank_mat[zwyciezcy, , drop = FALSE])
       zwyciezcy_ind <- zwyciezcy[which.min(sums)]
     }
@@ -63,7 +61,7 @@ fuzzy_meta_ranking <- function(macierz_decyzyjna,
     args_base$bwm_najgorsze <- bwm_najgorsze
   }
 
-  # VIKOR, TOPSIS, WASPAS
+  # VIKOR
   res_vikor  <- do.call(fuzzy_vikor, c(args_base, list(v = v)))
 
   # MULTIMOORA
@@ -71,7 +69,7 @@ fuzzy_meta_ranking <- function(macierz_decyzyjna,
 
   # 3. Zestawienie Wyników
   rank_matrix <- cbind(
-    res_vikor$results$Ranking,
+    res_vikor$wyniki$ranking,
     res_mm$wyniki$Ranking_MM
   )
   colnames(rank_matrix) <- c("VIKOR", "MMOORA")
@@ -81,10 +79,10 @@ fuzzy_meta_ranking <- function(macierz_decyzyjna,
   rank_sum <- rank(rowSums(rank_matrix), ties.method = "first")
 
   # B. Dominacja
-  rank_dom <- oblicz_dominacje_ranking(rank_matrix)
+  rank_dom <- oblicz_ranking_dominacji(rank_matrix)
 
   # C. RankAggreg
-  ra_input <- t(apply(rank_matrix, 2, order)) # Konwersja na listę indeksów
+  ra_input <- t(apply(rank_matrix, 2, order))
   n_alt <- nrow(macierz_decyzyjna)
 
   if (n_alt <= 10) {

@@ -80,12 +80,12 @@ plot.fuzzy_multimoora_res <- function(x, ...) {
   ggplot(df, aes(x = RS_Wynik, y = RP_Wynik)) +
     annotate("rect", xmin = median(df$RS_Wynik), xmax = Inf, ymin = -Inf, ymax = median(df$RP_Wynik), fill = "#E8F5E9", alpha = 0.5) +
     geom_point(aes(size = Sila, fill = as.factor(Ranking_MM)), shape = 21, color = "black") +
-    geom_text_repel(aes(label = paste0("Alt ", Alternatywa))) +
+    geom_text_repel(aes(label = paste0("Kraj ", Alternatywa))) +
 
     .motyw_wykresu() +
     scale_fill_brewer(palette = "RdYlGn", direction = -1) +
     labs(
-        title = "Mapa MULTIMOORA",
+        title = "Analiza Fuzzy MULTIMOORA",
         x = "System Ilorazowy (Max)",
         y = "Punkt Odniesienia (Min)")
 }

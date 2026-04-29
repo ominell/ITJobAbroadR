@@ -5,18 +5,23 @@
 
 <!-- badges: end -->
 
-**ITJobAbroadR** to pakiet R przeprowadzenie pełnej analizy MCDA
+**ITJobAbroadR** to pakiet R do przeprowadzenia pełnej analizy MCDA
 (Multi‑Criteria Decision Analysis) w kontekście wyboru kraju do pracy w
 branży IT.
 
+------------------------------------------------------------------------
+
 ## Funkcje pakietu
 
-- **Przygotowanie danych rozmytych**
-- **Best-Worst Method (BWM)** - ważenie kryteriów
-- **2 metody MCDA:**
-- Fuzzy VIKOR
-- MultiMOORA
-- **Wizualizacje wyników**
+- Przygotowanie danych rozmytych
+- Wyznaczenie wag przy użyciu **Best-Worst Method (BWM)**
+- Implementacja metod MCDA:
+- **Fuzzy VIKOR**
+- **Fuzzy MultiMOORA**
+- Wizualizacje wyników
+- Meta-ranking
+
+------------------------------------------------------------------------
 
 ## Instalacja
 
@@ -58,7 +63,7 @@ res_vikor <- fuzzy_vikor(macierz_decyzyjna = macierz_rozmyta,
 #> Obliczanie wag metodą BWM...
 
 # 4. Wyświetl wynik 
-print(res_vikor$wyniki) 
+print(res_vikor$wyniki)
 #>    Alternatywa         S          R         Q ranking
 #> 1            1 0.3459050 0.14454410 0.4392888       6
 #> 2            2 0.3462842 0.17117182 0.4703025       8
@@ -72,7 +77,7 @@ print(res_vikor$wyniki)
 #> 10          10 0.1890987 0.09333401 0.3111909       2
 
 # 5. Wyświetl mapę decyzyjną 
-plot(res_vikor) 
+plot(res_vikor)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />

@@ -4,7 +4,7 @@
 \alias{mcda_dane_surowe}
 \title{Przykładowe dane do macierzy decyzyjnej MCDA}
 \format{
-Ramka danych (data frame) z 50 wierszami i 12 zmiennymi:
+Ramka danych (data frame) z 50 wierszami i 15 zmiennymi:
 \describe{
   \item{EkspertID}{Identyfikator eksperta (1–5). Każdy ekspert ocenia wszystkie kraje.}
   \item{Alternatywa}{Nazwa kraju będącego alternatywą decyzyjną.}
@@ -29,6 +29,6 @@ data(mcda_dane_surowe)
 }
 \description{
 Zbiór danych zawierający symulowane odpowiedzi lub pomiary dla 10 alternatyw
-ocenianych w ramach 10 zmiennych reprezentujących kryteria.
+ocenianych w ramach 13 zmiennych reprezentujących kryteria.
 Zbiór przeznaczony do użycia z funkcją `przygotuj_dane_mcda()`.
 }

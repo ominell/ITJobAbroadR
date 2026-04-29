@@ -47,7 +47,7 @@ macierz_rozmyta <- przygotuj_dane_mcda(
 ) 
 
 # Podgląd fragmentu macierzy
-print(macierz_rozmyta[1:5, 1:6])
+knitr::kable(as.data.frame(macierz_rozmyta[1:5, 1:6]))
 ```
 
 ## 4. Wyznaczanie wag metodą BWM (Best-Worst Method)
@@ -83,7 +83,7 @@ wynik_vikor <- fuzzy_vikor(
   bwm_najgorsze = bwm_najgorsze
 )
 
-# Fuzzy VMULTIMOORA
+# Fuzzy MULTIMOORA
 wynik_multimoora <- fuzzy_multimoora(
   macierz_decyzyjna = macierz_rozmyta,
   typy_kryteriow = typy,
