@@ -44,7 +44,6 @@ library(ITJobAbroadR)
 data("mcda_dane_surowe") 
 
 # 2. Przygotuj macierz rozmytą 
-# Definiujemy, które kolumny tworzą kryteria 
 skladnia <- "Warunki =~ war_oferty + war_siec + war_elast;
              Koszt =~ koszt_mieszkanie + koszt_jedzenie + koszt_transport;
              Atrakcyjnosc =~ atr_kultura + atr_jezyk + atr_obcy + atr_zdrowie;
@@ -55,7 +54,7 @@ macierz_rozmyta <- przygotuj_dane_mcda(mcda_dane_surowe, skladnia, kolumna_alter
 
 # 3. Oblicz ranking metodą Fuzzy VIKOR
 res_vikor <- fuzzy_vikor(macierz_decyzyjna = macierz_rozmyta,
-                     typy_kryteriow= c("min","max","max","min","min"),
+                     typy_kryteriow= c("max","min","max","max","min"),
                      bwm_kryteria = c("Warunki", "Koszt", "Atrakcyjnosc", "Rozwoj", "Strefa_czasowa"), 
                      bwm_najlepsze = c(1,3,2,6,8),
                      bwm_najgorsze = c(8,5,6,3,1)
@@ -64,20 +63,30 @@ res_vikor <- fuzzy_vikor(macierz_decyzyjna = macierz_rozmyta,
 
 # 4. Wyświetl wynik 
 print(res_vikor$wyniki)
-#>    Alternatywa         S          R         Q ranking
-#> 1            1 0.3459050 0.14454410 0.4392888       6
-#> 2            2 0.3462842 0.17117182 0.4703025       8
-#> 3            3 0.3147758 0.13465188 0.4141762       5
-#> 4            4 0.3913298 0.29070491 0.6285342      10
-#> 5            5 0.4547699 0.25052115 0.6098063       9
-#> 6            6 0.0930141 0.06372314 0.2347465       1
-#> 7            7 0.2145565 0.11009372 0.3417719       4
-#> 8            8 0.2365612 0.09947639 0.3391229       3
-#> 9            9 0.3202589 0.17155513 0.4593323       7
-#> 10          10 0.1890987 0.09333401 0.3111909       2
+#>    Alternatywa          S          R         Q ranking
+#> 1            1 0.33202427 0.16358810 0.4644608       4
+#> 2            2 0.34483969 0.13696039 0.4398026       2
+#> 3            3 0.36810142 0.17348032 0.4907298       6
+#> 4            4 0.05192986 0.04862186 0.2174769       1
+#> 5            5 0.32926279 0.16227770 0.4618262       3
+#> 6            6 0.44637225 0.29070491 0.6557096      10
+#> 7            7 0.28029815 0.20398230 0.4883419       5
+#> 8            8 0.40827222 0.23870839 0.5811138       9
+#> 9            9 0.48625950 0.19831534 0.5682357       8
+#> 10          10 0.33316222 0.22567344 0.5349486       7
 
 # 5. Wyświetl mapę decyzyjną 
 plot(res_vikor)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
+
+## Raportowanie wyników
+
+Możesz wygenerować tabele w stylu APA z wynikami.
+
+``` r
+tabela_apa(res_vikor)
+```
+
+<img src="man/figures/README-tabela_apa-1.png" width="100%" />

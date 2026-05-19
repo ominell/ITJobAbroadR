@@ -42,6 +42,7 @@ devtools::install_github("ominell/ITJobAbroadR")
 ## Szybki Start
 
 Oto podstawowy przykład użycia pakietu z wykorzystaniem wbudowanych danych.
+
 ```{r example}
 library(ITJobAbroadR)
 
@@ -49,7 +50,6 @@ library(ITJobAbroadR)
 data("mcda_dane_surowe") 
 
 # 2. Przygotuj macierz rozmytą 
-# Definiujemy, które kolumny tworzą kryteria 
 skladnia <- "Warunki =~ war_oferty + war_siec + war_elast;
              Koszt =~ koszt_mieszkanie + koszt_jedzenie + koszt_transport;
              Atrakcyjnosc =~ atr_kultura + atr_jezyk + atr_obcy + atr_zdrowie;
@@ -60,7 +60,7 @@ macierz_rozmyta <- przygotuj_dane_mcda(mcda_dane_surowe, skladnia, kolumna_alter
 
 # 3. Oblicz ranking metodą Fuzzy VIKOR
 res_vikor <- fuzzy_vikor(macierz_decyzyjna = macierz_rozmyta,
-                     typy_kryteriow= c("min","max","max","min","min"),
+                     typy_kryteriow= c("max","min","max","max","min"),
                      bwm_kryteria = c("Warunki", "Koszt", "Atrakcyjnosc", "Rozwoj", "Strefa_czasowa"), 
                      bwm_najlepsze = c(1,3,2,6,8),
                      bwm_najgorsze = c(8,5,6,3,1)
@@ -71,5 +71,12 @@ print(res_vikor$wyniki)
 
 # 5. Wyświetl mapę decyzyjną 
 plot(res_vikor)
+```
 
+## Raportowanie wyników
+
+Możesz wygenerować tabele w stylu APA z wynikami.
+
+```{r tabela_apa}
+tabela_apa(res_vikor)
 ```
