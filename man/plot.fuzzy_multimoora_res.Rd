@@ -2,10 +2,10 @@
 % Please edit documentation in R/wizualizacja.R
 \name{plot.fuzzy_multimoora_res}
 \alias{plot.fuzzy_multimoora_res}
-\title{Mapa Strategiczna MULTIMOORA}
+\title{Wizualizacja Fuzzy MULTIMOORA}
 \usage{
 \method{plot}{fuzzy_multimoora_res}(x, ...)
 }
 \description{
-Mapa Strategiczna MULTIMOORA
+Wizualizacja Fuzzy MULTIMOORA
 }

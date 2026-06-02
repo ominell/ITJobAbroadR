@@ -70,7 +70,7 @@ bwm_najgorsze <- c(8,5,6,3,1)
 
 ## 5. Analiza Decyzyjna (VIKOR, MultiMOORA)
 
-Uruchamiamy metody. Pakiet automatycznie policzy wagi z parametrów BWM. Definiujemy typy kryteriów: min (koszt) lub max (korzyść).
+Uruchamiamy metody. Pakiet automatycznie policzy wagi z parametrów BWM. Definiujemy typy kryteriów: min (strata) lub max (zysk).
 ```{r}
 typy <- c("max","min","max","max","min")
 
@@ -107,7 +107,43 @@ plot(wynik_multimoora)
 
 ## 7. Meta-Ranking (Konsensus)
 
-Agregujemy wyniki obu metod, aby uzyskać ostateczną decyzję.
+Przepływ informacji w meta-rankingu przebiega następująco:
+
+``` mermaid
+flowchart LR
+    A[Macierz decyzyja] --> D
+    B[Wagi/BWM] --> D
+    
+    subgraph Internal_Steps [Metody MCDA]
+    direction TB
+    D[Uruchom VIKOR] --> R1(Rank 1)
+    E[Uruchom MULTIMOORA] --> R2(Rank 2)
+    end
+    
+    A --> E
+    B --> E
+
+    R1 --> F
+    R2 --> F
+    
+    subgraph Consensus [Porównanie metod]
+    direction TB
+    G{Agregacja}
+    F --> G[Sum of Ranks]
+    F --> H[Theory of Dominance]
+    F --> I[RankAggreg GA]
+    end
+    
+    G --> J[WYNIK KOŃCOWY:\nTabela porównawcza]
+    H --> J
+    I --> J
+    
+    style Internal_Steps fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Consensus fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    style K fill:#dcedc8,stroke:#33691e,stroke-width:2px
+```
+Otrzymane wyniki obu metod są agregowane, aby uzyskać ostateczną decyzję. W końcowym rankingu są porównane rankingi uzyskane z metod. Wskaźnik korelacji Spearmana pokazuje jak bardzo zgadzają się ze sobą wyniki tych metod (jeśli > 0.9, to jest silne podobieństwo).
+
 ```{r}
 meta_wynik <- fuzzy_meta_ranking(
   macierz_decyzyjna = macierz_rozmyta,
@@ -118,4 +154,7 @@ meta_wynik <- fuzzy_meta_ranking(
 
 # Tabela porównawcza 
 knitr::kable(meta_wynik$comparison, caption = "Ostateczny ranking krajów") 
+
+# Sprawdzenie korelacji między metodami
+knitr::kable (round(as.data.frame(meta_wynik$correlations[1:2, 1:5]),2))
 ```
