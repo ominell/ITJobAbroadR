@@ -13,9 +13,9 @@ knitr::opts_chunk$set(
 # ITJobAbroadR
 
 <!-- badges: start -->
+**ITJobAbroadR** to pakiet R wspomagający przeprowadzenie pełnej analizy MCDA (Multi‑Criteria Decision Analysis) 
+w kontekście wyboru kraju do pracy w branży IT. 
 <!-- badges: end -->
-
-**ITJobAbroadR** to pakiet R do przeprowadzenia pełnej analizy MCDA (Multi‑Criteria Decision Analysis) w kontekście wyboru kraju do pracy w branży IT.
 
 ---
 
@@ -23,15 +23,13 @@ knitr::opts_chunk$set(
 
 -  Przygotowanie danych rozmytych
 -  Wyznaczenie wag przy użyciu **Best-Worst Method (BWM)** 
--  Implementacja metod MCDA:
-  - **Fuzzy VIKOR**
-  - **Fuzzy MultiMOORA**
+-  Implementacja metod MCDA: **Fuzzy VIKOR** i Fuzzy MultiMOORA
 -  Wizualizacje wyników
 -  Meta-ranking 
 
 ---
 
-## Instalacja
+# Instalacja
 
 Możesz zainstalować wersję deweloperską z serwisu GitHub:
 
@@ -39,9 +37,10 @@ Możesz zainstalować wersję deweloperską z serwisu GitHub:
 # install.packages("devtools")
 devtools::install_github("ominell/ITJobAbroadR")
 ```
-## Szybki Start
 
-Oto podstawowy przykład użycia pakietu z wykorzystaniem wbudowanych danych.
+# Szybki Start
+
+Oto podstawowy przykład użycia pakietu z wykorzystaniem wbudowanego zbioru danych.
 
 ```{r example}
 library(ITJobAbroadR)
@@ -75,8 +74,16 @@ plot(res_vikor)
 
 ## Raportowanie wyników
 
-Możesz wygenerować tabele w stylu APA z wynikami.
+Możesz wygenerować tabele w stylu APA z wynikami:
 
 ```{r tabela_apa}
 tabela_apa(res_vikor)
+```
+
+# Dokumentacja
+
+Pełną instrukcję z porównaniem wyników do rankingu metody Fuzzy MULTIMOORA znajdziesz w poradniku:
+
+```{r}
+vignette("poradnik_mcda", package = "ITJobAbroadR")
 ```

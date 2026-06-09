@@ -1,9 +1,12 @@
 Package: ITJobAbroadR
 Type: Package
-Title: Pakiet R do wspomagania decyzji o wyborze pracy zagranicznej w IT 
-Version: 0.4.0
+Title: Pakiet R do wspomagania decyzji o wyborze kraju do pracy w sektorze IT. 
+Version: 0.1.0
 Author: Julianna Suder <julianna.suder@student.uj.edu.pl>
-Description: Pakiet implementuje metody Fuzzy VIKOR i MultiMOORA.
+Maintainer: Julianna Suder <julianna.suder@student.uj.edu.pl>
+Description: Pakiet implementuje metody MCDA: Fuzzy VIKOR i MultiMOORA. 
+  Zawiera skrypt przetwarzajacy surowe dane na trojkatne liczby rozmyte (TFN) oraz algorytmy wyznaczania wag kryteriów (np. BWM).
+  Celem pakietu jest stworzenie rankingów krajów do podjęcia pracy w sektorze IT.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

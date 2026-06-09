@@ -131,8 +131,8 @@ tabela_apa.fuzzy_multimoora_res <- function(x, tytul = "Wyniki MULTIMOORA") {
 
 #' @export
 tabela_apa.list <- function(x, tytul = "Meta-Ranking (Konsensus)") {
-  if(is.null(x$porownanie)) stop("To nie jest obiekt meta-rankingu.")
-  df <- x$porownanie
+  if(is.null(x$comparison)) stop("To nie jest obiekt meta-rankingu.")
+  df <- x$comparison
   names(df) <- gsub("_", " ", names(df))
   rempsyc::nice_table(
     df,
